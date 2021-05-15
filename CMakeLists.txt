@@ -8,3 +8,21 @@ add_subdirectory("lib/LCGE")
 
 target_include_directories(${PROJECT_NAME} PRIVATE "lib/LCGE/include")
 target_link_libraries(${PROJECT_NAME} LCGE "${CMAKE_DL_LIBS}")
+
+if (WIN32)
+    if (MSVC)
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.exe
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:LCGE> ${PROJECT_BINARY_DIR}/LCGE.dll
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ../assets ${PROJECT_BINARY_DIR}/assets
+            COMMENT "Created ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.exe"
+        )
+    else()
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.exe
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:LCGE> ${PROJECT_BINARY_DIR}/libLCGE.dll
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ../assets ${PROJECT_BINARY_DIR}/assets
+            COMMENT "Created ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.exe"
+        )
+    endif()
+endif()

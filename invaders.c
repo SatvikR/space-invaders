@@ -3,7 +3,7 @@
 int main(int argc, char const *argv[])
 {
 	// Initialize LCGE with the path to the res directory of LCGE (specific to you)
-	if (lcge_init("lib/LCGE/res") == LCGE_INIT_ERR) {
+	if (lcge_init("assets/") == LCGE_INIT_ERR) {
 		lcge_exit();
 		return -1;
 	}
