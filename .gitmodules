@@ -1,0 +1,3 @@
+[submodule "lib/LCGE"]
+	path = lib/LCGE
+	url = https://github.com/SatvikR/LCGE.git
