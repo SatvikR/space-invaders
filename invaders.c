@@ -18,7 +18,9 @@ static LCGE_image *player_sprite;
 
 static void load_sprites()
 {
-	player_sprite = lcge_image_load("assets/cannon-small.png", (WIDTH - CANNON_W) / 2.0f, 700.0f ,CANNON_W, CANNON_H);
+	player_sprite = lcge_image_load("assets/cannon-small.png",
+					(WIDTH - CANNON_W) / 2.0f, 700.0f,
+					CANNON_W, CANNON_H);
 }
 
 static void delete_sprites()
@@ -64,12 +66,14 @@ int main(int argc, char const *argv[])
 			}
 		}
 		if (lcge_get_key(LCGE_KEY_RIGHT) == LCGE_KEY_PRESSED) {
-			if ((player_state.x + CANNON_W) <= (WIDTH - PLAYER_SPEED)) {
+			if ((player_state.x + CANNON_W) <=
+			    (WIDTH - PLAYER_SPEED)) {
 				player_state.x += PLAYER_SPEED;
 			}
 		}
 
-		lcge_image_set(player_sprite, player_state.x, 700.0f, CANNON_W, CANNON_H);
+		lcge_image_set(player_sprite, player_state.x, 700.0f, CANNON_W,
+			       CANNON_H);
 		/* Drawing */
 		lcge_window_clear();
 
