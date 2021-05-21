@@ -1,6 +1,6 @@
 
 # This file is a modified version of the .clang-format file from the Linux Kernel
-# SPDX-License-Identifier: LGPL-2.1
+# SPDX-License-Identifier: BSD-2-Clause
 #
 # clang-format configuration file. Intended for clang-format >= 9.
 #

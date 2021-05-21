@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(space_invaders)
 
-set(TARGET ${PROJECT_NAME} C_STANDARD 99)
-add_executable(${PROJECT_NAME} invaders.c)
+set(TARGET ${PROJECT_NAME} CXX_STANDARD 17)
+add_executable(${PROJECT_NAME} invaders.cpp)
 
 add_subdirectory("lib/LCGE")
 
