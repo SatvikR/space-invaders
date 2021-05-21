@@ -69,7 +69,8 @@ static void main_menu()
 	char in_menu = 1;
 	LCGE_text *title =
 		lcge_text_load("Space Invaders", 0.0f, 200.0f, title_font);
-	LCGE_text *subtitle = lcge_text_load("Press space to play", 0.0f, 0.0f, subtitle_font);
+	LCGE_text *subtitle = lcge_text_load("Press space to play", 0.0f, 0.0f,
+					     subtitle_font);
 
 	lcge_text_set(title, "Space Invaders",
 		      (WIDTH - lcge_text_get_width(title)) / 2.0f, 200.0f);
