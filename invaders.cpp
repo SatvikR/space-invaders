@@ -138,9 +138,11 @@ static void game()
 					     curr_time - prev_time)
 					     .count();
 
-			if (delta >= 500) {
+			if (delta >= 350) {
 				player_lasers.push_back(
-					{ player_state.x, 700.0f - LASER_H });
+					{ player_state.x + (CANNON_W / 2) -
+						  LASER_W / 2,
+					  700.0f - LASER_H });
 				prev_time = curr_time;
 			}
 		}
@@ -155,8 +157,7 @@ static void game()
 
 		for (auto &laser : player_lasers) {
 			lcge_image_set(green_laser_sprite, laser.x, laser.y,
-				       LASER_H, LASER_W);
-			lcge_image_rotate(green_laser_sprite, 90.0f);
+				       LASER_W, LASER_H);
 			lcge_image_draw(green_laser_sprite);
 		}
 
