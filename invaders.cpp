@@ -21,8 +21,18 @@
 #define LASER_H (50.0f * 0.5f)
 #define LASER_W (14.0f * 0.5f)
 
+#define INVADER_1_W (42.0f * 1.25f)
+#define INVADER_1_H (29.0f * 1.25f)
+#define INVADER_2_W (44.0f * 1.25f)
+#define INVADER_2_H (29.0f * 1.25f)
+#define INVADER_3_W (32.0f * 1.5f)
+#define INVADER_3_H (31.0f * 1.5f)
+
 #define PLAYER_SPEED 10.0f
 #define LASER_SPEED  5.0f
+#define ENEMY_SPEED 0.35f
+
+#define ENEMY_MOVE_DURATION 120
 
 /* Local function defs */
 static void game();
@@ -31,14 +41,31 @@ static void main_menu();
 static LCGE_clock *fps_clock;
 
 static LCGE_image *player_sprite;
+static LCGE_image *invader_1;
+static LCGE_image *invader_2;
+static LCGE_image *invader_3;
 static LCGE_image *green_laser_sprite;
 
 static LCGE_font *title_font;
 static LCGE_font *subtitle_font;
 
+static int enemy_movement_count = ENEMY_MOVE_DURATION / 2;
+
+/* true -> right, false -> left */
+static bool enemy_direction = true;
+
+
+enum EnemyType { INV_ONE, INV_TWO, INV_THREE };
+
 struct LaserState {
 	float x;
 	float y;
+};
+
+struct EnemyState {
+	float x;
+	float y;
+	EnemyType type;
 };
 
 static void load_sprites()
@@ -50,6 +77,13 @@ static void load_sprites()
 	green_laser_sprite = lcge_image_load("assets/images/laser.png", 0.0f,
 					     0.0f, 0.0f, 0.0f);
 
+	invader_1 = lcge_image_load("assets/images/invader1-small.png", 0.0f,
+				    0.0f, 0.0f, 0.0f);
+	invader_2 = lcge_image_load("assets/images/invader2-small.png", 0.0f,
+				    0.0f, 0.0f, 0.0f);
+	invader_3 = lcge_image_load("assets/images/invader3-small.png", 0.0f,
+				    0.0f, 0.0f, 0.0f);
+
 	title_font =
 		lcge_font_load("assets/fonts/Eight-Bit Madness.ttf", 54.0f);
 	subtitle_font =
@@ -60,8 +94,51 @@ static void delete_sprites()
 {
 	lcge_image_delete(player_sprite);
 	lcge_image_delete(green_laser_sprite);
+	lcge_image_delete(invader_1);
+	lcge_image_delete(invader_2);
+	lcge_image_delete(invader_3);
 	lcge_font_delete(title_font);
 	lcge_font_delete(subtitle_font);
+}
+
+static void spawn_enemies(std::vector<EnemyState> &enemies)
+{
+	for (int i = 0; i < 11; i++) {
+		float inv_3_spacing = (800 - 100 - (INVADER_3_W * 11)) / 11;
+		float inv_2_spacing = (800 - 100 - (INVADER_2_W * 11)) / 11;
+		float inv_1_spacing = (800 - 100 - (INVADER_1_W * 11)) / 11;
+
+		enemies.push_back({ 50 + (i * (INVADER_3_W + inv_3_spacing)),
+				    100.0f, INV_THREE });
+		enemies.push_back({ 50 + (i * (INVADER_2_W + inv_2_spacing)),
+				    100.0f + INVADER_3_H + 20.0f, INV_TWO });
+		enemies.push_back({ 50 + (i * (INVADER_2_W + inv_2_spacing)),
+				    100.0f + INVADER_3_H + INVADER_2_H + 40.0f,
+				    INV_TWO });
+		enemies.push_back({ 50 + (i * (INVADER_1_W + inv_1_spacing)),
+				    100.0f + INVADER_3_H +
+					    (INVADER_2_H * 2.0f) + 60.0f });
+		enemies.push_back({ 50 + (i * (INVADER_1_W + inv_1_spacing)),
+				    100.0f + INVADER_3_H +
+					    (INVADER_2_H * 2.0f) + INVADER_1_H +
+					    80.0f });
+	}
+}
+
+static void update_enemies(std::vector<EnemyState> &enemies)
+{
+	for (auto &enemy : enemies) {
+		if (enemy_direction) {
+			enemy.x += ENEMY_SPEED;
+		} else {
+			enemy.x -= ENEMY_SPEED;
+		}
+	}
+
+	if (enemy_movement_count % ENEMY_MOVE_DURATION == 0) {
+		enemy_direction = !enemy_direction;
+	}
+	enemy_movement_count++;
 }
 
 static void main_menu()
@@ -104,8 +181,11 @@ static void game()
 	} player_state;
 
 	std::vector<LaserState> player_lasers;
+	std::vector<EnemyState> enemies;
 	player_state.x = (WIDTH - CANNON_W) / 2.0f;
 	auto prev_time = std::chrono::high_resolution_clock::now();
+
+	spawn_enemies(enemies);
 
 	while (lcge_window_is_open()) {
 		/* Udpating */
@@ -116,6 +196,8 @@ static void game()
 				remaining.push_back(laser);
 			}
 		}
+
+		update_enemies(enemies);
 
 		player_lasers = remaining;
 
@@ -159,6 +241,26 @@ static void game()
 			lcge_image_set(green_laser_sprite, laser.x, laser.y,
 				       LASER_W, LASER_H);
 			lcge_image_draw(green_laser_sprite);
+		}
+
+		for (auto &enemy : enemies) {
+			switch (enemy.type) {
+			case INV_THREE:
+				lcge_image_set(invader_3, enemy.x, enemy.y,
+					       INVADER_3_W, INVADER_3_H);
+				lcge_image_draw(invader_3);
+				break;
+			case INV_TWO:
+				lcge_image_set(invader_2, enemy.x, enemy.y,
+					       INVADER_2_W, INVADER_2_H);
+				lcge_image_draw(invader_2);
+				break;
+			case INV_ONE:
+				lcge_image_set(invader_1, enemy.x, enemy.y,
+					INVADER_1_W, INVADER_1_H);
+				lcge_image_draw(invader_1);
+				break;
+			}
 		}
 
 		/* Get ready for next iteration */
