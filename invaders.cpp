@@ -30,7 +30,7 @@
 
 #define PLAYER_SPEED 10.0f
 #define LASER_SPEED  5.0f
-#define ENEMY_SPEED 0.35f
+#define ENEMY_SPEED  0.35f
 
 #define ENEMY_MOVE_DURATION 120
 
@@ -53,7 +53,6 @@ static int enemy_movement_count = ENEMY_MOVE_DURATION / 2;
 
 /* true -> right, false -> left */
 static bool enemy_direction = true;
-
 
 enum EnemyType { INV_ONE, INV_TWO, INV_THREE };
 
@@ -257,7 +256,7 @@ static void game()
 				break;
 			case INV_ONE:
 				lcge_image_set(invader_1, enemy.x, enemy.y,
-					INVADER_1_W, INVADER_1_H);
+					       INVADER_1_W, INVADER_1_H);
 				lcge_image_draw(invader_1);
 				break;
 			}
