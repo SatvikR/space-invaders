@@ -23,9 +23,11 @@ target_link_libraries(${PROJECT_NAME} LCGE "${CMAKE_DL_LIBS}")
 if (WIN32)
     if (MSVC)
         add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.exe
-            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:LCGE> ${PROJECT_BINARY_DIR}/LCGE.dll
-            COMMAND ${CMAKE_COMMAND} -E copy_directory ../assets ${PROJECT_BINARY_DIR}/assets
+            COMMAND ${CMAKE_COMMAND} -E make_directory(../dist)
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> ../dist/${PROJECT_NAME}.exe
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:LCGE> ../dist/LCGE.dll
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ../assets ../dist/assets
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ../lib/LCGE/res ../dist/assets/LCGE
             COMMENT "Created ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.exe"
         )
     else()

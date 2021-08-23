@@ -14,7 +14,7 @@ Game::~Game()
 
 bool Game::setup()
 {
-	if (lcge_init("assets/") == LCGE_INIT_ERR)
+	if (lcge_init(LCGE_RES_DIR) == LCGE_INIT_ERR)
 	{
 		lcge_exit();
 		return false;
