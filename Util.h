@@ -1,0 +1,14 @@
+// Copyright (c) 2021, Satvik Reddy <reddy.satvik@gmail.com>
+
+#pragma once
+
+#include <LCGE/lcge.h>
+
+class Util
+{
+public:
+	static void center_text(LCGE_text *text, const char *c);
+
+	static void center_text_x(LCGE_text *text, const char *c);
+	static void center_text_y(LCGE_text *text, const char *c);
+};

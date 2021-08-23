@@ -2,7 +2,18 @@ cmake_minimum_required(VERSION 3.10)
 project(space_invaders)
 
 set(TARGET ${PROJECT_NAME} CXX_STANDARD 17)
-add_executable(${PROJECT_NAME} invaders.cpp)
+set(SOURCES
+    "main.cpp"
+    "Game.cpp"
+    "Game.h"
+    "Screen.cpp"
+    "Screen.h"
+    "MainMenu.cpp"
+    "MainMenu.h"
+    "Util.h"
+    "Util.cpp"
+)
+add_executable(${PROJECT_NAME} ${SOURCES})
 
 add_subdirectory("lib/LCGE")
 
