@@ -16,7 +16,7 @@ public:
 
 	static constexpr char TITLE[] = "Space Invaders";
 
-	static constexpr unsigned int FPS = 60;
+	static constexpr unsigned int FPS = 120;
 
 	static constexpr Color GREEN = { 0.0f, 255.0f, 0.0f };
 };

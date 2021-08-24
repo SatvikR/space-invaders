@@ -41,6 +41,9 @@ MainMenu::~MainMenu()
 
 bool MainMenu::update()
 {
+	if (lcge_get_key(LCGE_KEY_SPACE) == LCGE_KEY_PRESSED)
+		return false;
+
 	lcge_text_draw(
 		m_title, Globals::GREEN.r, Globals::GREEN.g, Globals::GREEN.b
 	);

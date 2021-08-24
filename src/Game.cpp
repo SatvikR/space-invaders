@@ -4,6 +4,7 @@
 #include "Globals.h"
 #include "Screen.h"
 #include "MainMenu.h"
+#include "PlayScreen.h"
 #include <LCGE/lcge.h>
 
 Game::~Game()
@@ -34,6 +35,13 @@ bool Game::setup()
 
 void Game::run()
 {
-	Screen *main_menu = new MainMenu(m_clock);
-	main_menu->run();
+	Screen *screens[] = {
+		new MainMenu(m_clock),
+		new PlayScreen(m_clock)
+	};
+	for (auto &s : screens)
+	{
+		s->run();
+		delete s;
+	}
 }

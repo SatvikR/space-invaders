@@ -9,7 +9,8 @@ int main(int argc, char const *argv[])
 	Game game;
 
 	bool success = game.setup();
-	if (!success) {
+	if (!success)
+	{
 		std::cerr << "failed to initialized LCGE" << std::endl;
 		return -1;
 	}

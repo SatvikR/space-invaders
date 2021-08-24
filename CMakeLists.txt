@@ -3,15 +3,25 @@ project(space_invaders)
 
 set(TARGET ${PROJECT_NAME} CXX_STANDARD 17)
 set(SOURCES
-    "main.cpp"
-    "Game.cpp"
-    "Game.h"
-    "Screen.cpp"
-    "Screen.h"
-    "MainMenu.cpp"
-    "MainMenu.h"
-    "Util.h"
-    "Util.cpp"
+    "src/main.cpp"
+    "src/Game.cpp"
+    "src/Game.h"
+    "src/Screen.cpp"
+    "src/Screen.h"
+    "src/MainMenu.cpp"
+    "src/MainMenu.h"
+    "src/Util.cpp"
+    "src/Util.h"
+    "src/PlayScreen.cpp"
+    "src/PlayScreen.h"
+    "src/Alien.cpp"
+    "src/Alien.h"
+    "src/AlienOne.cpp"
+    "src/AlienOne.h"
+    "src/AlienTwo.cpp"
+    "src/AlienTwo.h"
+    "src/AlienThree.cpp"
+    "src/AlienThree.h"
 )
 add_executable(${PROJECT_NAME} ${SOURCES})
 
