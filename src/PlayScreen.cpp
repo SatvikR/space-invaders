@@ -42,19 +42,27 @@ PlayScreen::PlayScreen(LCGE_clock *clock)
 	: Screen(clock)
 {
 	spawn_aliens();
+	m_player = new Player();
 }
 
 PlayScreen::~PlayScreen()
 {
 	AlienOne::delete_sprite();
+	AlienTwo::delete_sprite();
+	AlienThree::delete_sprite();
+	delete m_player;
 }
 
 bool PlayScreen::update()
 {
 	for (auto &a : m_aliens)
 	{
-		a->update_pos();
+		a->update();
 		a->draw();
 	}
+
+	m_player->update();
+	m_player->draw();
+
 	return true;
 }

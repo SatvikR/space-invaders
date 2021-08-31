@@ -12,7 +12,7 @@ Alien::Alien(float x, float y)
 	m_curr_frame = 0.0f;
 }
 
-void Alien::update_pos()
+void Alien::update()
 {
 	m_x += m_vel_x;
 

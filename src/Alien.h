@@ -10,7 +10,7 @@ class Alien
 public:
 	Alien(float x, float y);
 
-	void update_pos();
+	void update();
 
 	float x();
 	float y();
@@ -23,7 +23,7 @@ private:
 	float m_vel_x;
 	float m_curr_frame;
 
-	static constexpr float m_speed = 0.25f;
+	static constexpr float m_speed = 0.5f;
 	static constexpr float m_move_frames = Globals::FPS * 2;
 public:
 	static constexpr float move_width = m_speed * m_move_frames;
