@@ -11,6 +11,8 @@ public:
 	AlienOne(float x, float y);
 
 	void draw();
+	float width();
+	float height();
 
 	static void delete_sprite();
 

@@ -10,6 +10,7 @@ Alien::Alien(float x, float y)
 
 	m_vel_x = m_speed;
 	m_curr_frame = 0.0f;
+	m_is_dead = false;
 }
 
 void Alien::update()
@@ -44,3 +45,14 @@ void Alien::_draw(LCGE_image *sprite)
 	);
 	lcge_image_draw(sprite);
 }
+
+void Alien::kill()
+{
+	m_is_dead = true;
+}
+
+bool Alien::is_dead()
+{
+	return m_is_dead;
+}
+

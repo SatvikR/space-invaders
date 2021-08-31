@@ -9,6 +9,7 @@
 #include "AlienThree.h"
 #include "Globals.h"
 #include "Player.h"
+#include "Laser.h"
 #include <LCGE/lcge.h>
 #include <vector>
 
@@ -24,7 +25,10 @@ private:
 	void spawn_aliens();
 
 	std::vector<Alien*> m_aliens;
+	std::vector<Laser*> m_lasers;
 	Player *m_player;
+
+	int m_shoot_cooldown;
 
 	static constexpr int m_num_aliens_per_row = 11;
 

@@ -30,3 +30,13 @@ void AlienOne::delete_sprite()
 {
 	lcge_image_delete(m_sprite);
 }
+
+float AlienOne::width()
+{
+	return sprite_width;
+}
+
+float AlienOne::height()
+{
+	return sprite_height;
+}

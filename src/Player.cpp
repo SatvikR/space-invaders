@@ -1,6 +1,7 @@
 // Copyright (c) 2021, Satvik Reddy <reddy.satvik@gmail.com>
 
 #include "Util.h"
+#include "Laser.h"
 #include "Player.h"
 #include <LCGE/lcge.h>
 
@@ -50,4 +51,9 @@ void Player::update()
 		m_x = 0.0f;
 	else if (m_x > (Globals::WIDTH - m_sprite_width))
 		m_x = Globals::WIDTH - m_sprite_width;
+}
+
+Laser *Player::spawn_laser()
+{
+	return new Laser(((2.0f * m_x) + m_sprite_width) / 2.0f);
 }

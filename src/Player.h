@@ -1,6 +1,9 @@
 // Copyright (c) 2021, Satvik Reddy <reddy.satvik@gmail.com>
 
+#pragma once
+
 #include "Globals.h"
+#include "Laser.h"
 #include <LCGE/lcge.h>
 
 class Player
@@ -11,6 +14,8 @@ public:
 
 	void draw();
 	void update();
+
+	Laser *spawn_laser();
 private:
 	LCGE_image *m_sprite;
 
