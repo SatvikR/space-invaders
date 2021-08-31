@@ -46,7 +46,7 @@ bool Laser::collided(std::vector<Alien*> aliens)
 	for (auto &a : aliens)
 	{
 		float l_x = m_x;
-		float r_x = m_x + m_sprite_width
+		float r_x = m_x + m_sprite_width;
 		if (a->x() <= l_x && r_x <= (a->x() + a->width()) &&
 			a->y() <= m_y && m_y <= (a->y() + a->height()))
 		{
