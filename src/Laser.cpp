@@ -1,6 +1,7 @@
 // Copyright (c) 2021, Satvik Reddy <reddy.satvik@gmail.com>
 
 #include "Laser.h"
+#include "Util.h"
 #include <LCGE/lcge.h>
 #include <vector>
 
@@ -41,15 +42,19 @@ void Laser::draw()
 	lcge_image_draw(m_sprite);
 }
 
-bool Laser::collided(std::vector<Alien*> aliens)
+bool Laser::collided(std::vector<Alien*> aliens, unsigned int &points)
 {
+	if (m_y + m_sprite_height < 0)
+		return true;
+
 	for (auto &a : aliens)
 	{
-		float l_x = m_x;
-		float r_x = m_x + m_sprite_width;
-		if (a->x() <= l_x && r_x <= (a->x() + a->width()) &&
-			a->y() <= m_y && m_y <= (a->y() + a->height()))
+
+		if (Util::rect_collding(a->x(), a->y(), a->width(), a->height(),
+					m_x, m_y, m_sprite_width,
+					m_sprite_height))
 		{
+			points += a->points();
 			a->kill();
 			return true;
 		}

@@ -5,6 +5,7 @@
 #include "Screen.h"
 #include "MainMenu.h"
 #include "PlayScreen.h"
+#include "EndScreen.h"
 #include <LCGE/lcge.h>
 
 Game::~Game()
@@ -37,7 +38,8 @@ void Game::run()
 {
 	Screen *screens[] = {
 		new MainMenu(m_clock),
-		new PlayScreen(m_clock)
+		new PlayScreen(m_clock),
+		new EndScreen(m_clock)
 	};
 	for (auto &s : screens)
 	{

@@ -15,7 +15,7 @@ public:
 	void update();
 	void draw();
 
-	bool collided(std::vector<Alien*> aliens);
+	bool collided(std::vector<Alien*> aliens, unsigned int &points);
 
 	static void delete_sprite();
 private:

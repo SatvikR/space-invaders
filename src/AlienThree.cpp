@@ -40,3 +40,8 @@ float AlienThree::height()
 {
 	return sprite_height;
 }
+
+int AlienThree::points()
+{
+	return 30;
+}

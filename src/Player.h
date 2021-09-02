@@ -16,10 +16,16 @@ public:
 	void update();
 
 	Laser *spawn_laser();
+
+	void set_score(unsigned int score);
+	unsigned int get_score();
 private:
 	LCGE_image *m_sprite;
+	LCGE_text *m_score_text;
+	LCGE_font *m_score_font;
 
 	float m_x, m_y;
+	unsigned int m_score;
 
 	static constexpr char m_sprite_path[]
 		= "assets/images/cannon-small.png";
@@ -31,4 +37,7 @@ private:
 	static constexpr float m_default_y = Globals::HEIGHT * 0.8f;
 
 	static constexpr float m_speed = 5.0f;
+
+	static constexpr float m_score_xoff = 40.0f;
+	static constexpr float m_score_yoff = 40.0f;
 };

@@ -13,6 +13,7 @@ public:
 	void draw();
 	float width();
 	float height();
+	int points();
 
 	static void delete_sprite();
 

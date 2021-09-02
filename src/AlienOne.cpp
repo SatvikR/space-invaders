@@ -40,3 +40,8 @@ float AlienOne::height()
 {
 	return sprite_height;
 }
+
+int AlienOne::points()
+{
+	return 10;
+}

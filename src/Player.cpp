@@ -4,6 +4,7 @@
 #include "Laser.h"
 #include "Player.h"
 #include <LCGE/lcge.h>
+#include <sstream>
 
 Player::Player()
 {
@@ -15,13 +16,28 @@ Player::Player()
 		m_sprite_height
 	);
 
+	m_score_font = lcge_font_load(
+		"assets/fonts/Eight-Bit Madness.ttf",
+		36.0f
+	);
+
+	m_score_text = lcge_text_load(
+		"Score: 0",
+		m_score_xoff,
+		m_score_yoff,
+		m_score_font
+	);
+
 	m_x = m_default_x;
 	m_y = m_default_y;
+	m_score = 0;
 }
 
 Player::~Player()
 {
 	lcge_image_delete(m_sprite);
+	lcge_text_delete(m_score_text);
+	lcge_font_delete(m_score_font);
 }
 
 void Player::draw()
@@ -34,6 +50,8 @@ void Player::draw()
 		m_sprite_height
 	);
 	lcge_image_draw(m_sprite);
+	lcge_text_draw(m_score_text, Globals::GREEN.r, Globals::GREEN.g,
+		       Globals::GREEN.b);
 }
 
 void Player::update()
@@ -51,9 +69,29 @@ void Player::update()
 		m_x = 0.0f;
 	else if (m_x > (Globals::WIDTH - m_sprite_width))
 		m_x = Globals::WIDTH - m_sprite_width;
+
+	std::stringstream score_format;
+	score_format << "Score: " << m_score;
+	lcge_text_set(
+		m_score_text,
+		score_format.str().c_str(),
+		m_score_xoff,
+		m_score_yoff
+	);
 }
 
 Laser *Player::spawn_laser()
 {
 	return new Laser(((2.0f * m_x) + m_sprite_width) / 2.0f);
+}
+
+void Player::set_score(unsigned int score)
+{
+	m_score = score;
+}
+
+
+unsigned int Player::get_score()
+{
+	return m_score;
 }

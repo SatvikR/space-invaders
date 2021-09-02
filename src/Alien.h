@@ -21,6 +21,7 @@ public:
 	virtual void draw() = 0;
 	virtual float width() = 0;
 	virtual float height() = 0;
+	virtual int points() = 0;
 protected:
 	void _draw(LCGE_image *sprite);
 private:

@@ -19,8 +19,8 @@ void PlayScreen::spawn_aliens()
 		{
 			Alien *a;
 			if (i < 2)
-				a = new AlienOne(
-					m_alien_x_offset + (j * m_alien_one_spacing),
+				a = new AlienThree(
+					m_alien_x_offset + (j * m_alien_three_spacing),
 					m_alien_y_offset + (i * m_alien_row_height)
 				);
 			else if (i < 4)
@@ -29,8 +29,8 @@ void PlayScreen::spawn_aliens()
 					m_alien_y_offset + (i * m_alien_row_height)
 				);
 			else if (i < 6)
-				a = new AlienThree(
-					m_alien_x_offset + (j * m_alien_three_spacing),
+				a = new AlienOne(
+					m_alien_x_offset + (j * m_alien_one_spacing),
 					m_alien_y_offset + (i * m_alien_row_height)
 				);
 
@@ -61,11 +61,13 @@ PlayScreen::~PlayScreen()
 
 bool PlayScreen::update()
 {
+	unsigned int curr_score = m_player->get_score();
 	m_lasers.erase(
 		std::remove_if(m_lasers.begin(), m_lasers.end(),
-			[&](Laser* &l) { return l->collided(m_aliens); }),
+			[&](Laser* &l) { return l->collided(m_aliens, curr_score); }),
 		m_lasers.end()
 	);
+	m_player->set_score(curr_score);
 
 	m_aliens.erase(
 		std::remove_if(m_aliens.begin(), m_aliens.end(),
@@ -99,5 +101,5 @@ bool PlayScreen::update()
 	if (m_shoot_cooldown > 0)
 		m_shoot_cooldown--;
 
-	return true;
+	return m_aliens.size() > 0;
 }

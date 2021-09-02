@@ -26,6 +26,8 @@ set(SOURCES
     "src/Player.h"
     "src/Laser.cpp"
     "src/Laser.h"
+    "src/EndScreen.cpp"
+    "src/EndScreen.h"
 )
 add_executable(${PROJECT_NAME} ${SOURCES})
 

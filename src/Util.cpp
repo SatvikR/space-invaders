@@ -30,3 +30,12 @@ void Util::center_text_y(LCGE_text *text, const char *c)
 		text, c, x, (Globals::HEIGHT-h) / 2 + h
 	);
 }
+
+bool Util::rect_collding(float r1x, float r1y, float r1w, float r1h,
+			 float r2x, float r2y, float r2w, float r2h)
+{
+	return (r1x < r2x + r2w) &&
+		(r1x + r1w > r2x) &&
+		(r1y < r2y + r2h) &&
+		(r1y + r1h > r2y);
+}
